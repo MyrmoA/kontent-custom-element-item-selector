@@ -112,6 +112,7 @@
     <script>
       var projectid = "";
       var filter = "";
+      var secret = "";
       var items = [];
       var selectedItems = [];
 
@@ -131,9 +132,11 @@
         if (filter) {
           urlfindItems += "&" + filter;
         }
-
         $.ajax({
           url: urlfindItems,
+          headers: {
+              'Authorization': 'Bearer' + secret
+          },
           dataType: "text",
           success: function(data) {
             data = JSON.parse(data);
