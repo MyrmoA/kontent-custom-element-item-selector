@@ -1,56 +1,58 @@
-# Item Selector
+# Kontent Custom Element
 
-This is a [custom element](https://docs.kontent.ai/tutorials/develop-apps/integrate/integrating-your-own-content-editing-features) for [Kentico Kontent](https://kontent.ai) that allows you to select a content item from another Kontent project.
+- [Kontent Custom Element](#kontent-custom-element)
+  - [Development](#development)
+  - [Dependencies](#dependencies)
+  - [Testing](#testing)
+  - [Releasing](#releasing)
+  - [Terraform](#terraform)
+    This project is a custom element to be hosted as a plugin to the Kontent.ai headless CMS.
 
-![Screenshot of custom element](ItemSelector.png)
+Kontent Custom element is a plugin element for Kontent.ai that supports multiple custom elements based on a `type` input that is received from Kontent.ai at the time it's rendered in an iFrame.
+The current supported elements are:
 
-## Setup
+- Usergroup exceptions
+- World Region exceptions
 
-1. Deploy the code to a secure public host
-   - See [deploying section](#Deploying) for a really quick option
-1. Follow the instructions in the [Kentico Kontent documentation](https://docs.kontent.ai/tutorials/develop-apps/integrate/integrating-your-own-content-editing-features#a-3--displaying-a-custom-element-in-kentico-kontent) to add the element to a content model.
-   - The `Hosted code URL` is where you deployed to in step 1
-   - Pass the necessary parameters as directed in the [JSON Parameters configuration](#json-parameters) section of this readme.
+## Development
 
-## Deploying
+This should be enough to start the application locally. Note that this will not use any existing data, since there is no direct tie-in to Kontent this way.
 
-Netlify has made this easy. If you click the deploy button below, it will guide you through the process of deploying it to Netlify and leave you with a copy of the repository in your GitHub account as well.
+If you want to run against the production configuration, simply append `--prod` to the end of the `nx serve` command.
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/hzik/kontent-custom-element-item-selector)
+## Dependencies
 
-## JSON Parameters
+The Custom Element requires the following specifically, in addition to the [shared/common dependencies](../../README.md#dependencies):
 
-You need to specify the `projectid` parameter in order to make the element work. The optional `filter` parameter is for filtering just subitems of your project and you can use any filtering described in our documentation (separated by &):
+Dependencies:
 
-[Content filtering documentation](https://docs.kontent.ai/reference/delivery-api#tag/Filtering-content)
+- axios
+- react-select
 
-Within the filter you can also specify what language of your items you want to retrieve (a default language is returned OOTB) - [https://docs.kontent.ai/tutorials/develop-apps/get-content/getting-localized-content#a-ignoring-language-fallbacks](https://docs.kontent.ai/tutorials/develop-apps/get-content/getting-localized-content#a-ignoring-language-fallbacks)
+Dev Dependencies:
 
-```Json
-{
-    "projectid": "302946ce-a441-00e5-3dba-ec6ccc479168",
-    "filter": "system.type=article"
-}
+- @types/react-select
+- gzipper
+
+## Testing
+
+Jest is used for unit testing
+
+Run `nx test kontent-exception-element`
+
+## Releasing
+
+This application uses Github Actions to build, test, lint, and deploy to an AWS S3 bucket. Prior to syncing to S3, the application is gzipped using the [gzipper](https://www.npmjs.com/package/gzipper) library.
+
+For the release process, see [Releasing](../../README.md#releasing)
+
+## Terraform
+
+[Terraform](https://www.terraform.io/) was used to bootstrap the AWS environments. See `main.tf` for examples of the environment layout and resources created.
+
+If you have Terraform installed locally, as well as the appropriate AWS profiles, you should be able to do something like the following to build out an environment (using only one .tf file at a time in the directory):
+
+```bash
+terraform init
+terraform apply -auto-approve
 ```
-
-## Saved Value
-
-The value is saved as a string representing a JSON object. When deserialized, it will look like:
-
-```json
-[
-  {
-    "codename": "article_1",
-    "name": "Article 1",
-    "language": "en-US",
-    "type": "article"
-  },
-  {
-    "codename": "url1",
-    "name": "url1",
-    "language": "en-US",
-    "type":"video_item__url_"
-  }
-]
-```
-
