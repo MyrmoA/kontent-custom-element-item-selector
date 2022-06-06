@@ -1,58 +1,70 @@
-# Kontent Custom Element
+# Getting Started with Create React App
 
-- [Kontent Custom Element](#kontent-custom-element)
-  - [Development](#development)
-  - [Dependencies](#dependencies)
-  - [Testing](#testing)
-  - [Releasing](#releasing)
-  - [Terraform](#terraform)
-    This project is a custom element to be hosted as a plugin to the Kontent.ai headless CMS.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Kontent Custom element is a plugin element for Kontent.ai that supports multiple custom elements based on a `type` input that is received from Kontent.ai at the time it's rendered in an iFrame.
-The current supported elements are:
+## Available Scripts
 
-- Usergroup exceptions
-- World Region exceptions
+In the project directory, you can run:
 
-## Development
+### `npm start`
 
-This should be enough to start the application locally. Note that this will not use any existing data, since there is no direct tie-in to Kontent this way.
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-If you want to run against the production configuration, simply append `--prod` to the end of the `nx serve` command.
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-## Dependencies
+### `npm test`
 
-The Custom Element requires the following specifically, in addition to the [shared/common dependencies](../../README.md#dependencies):
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-Dependencies:
+### `npm run build`
 
-- axios
-- react-select
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-Dev Dependencies:
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-- @types/react-select
-- gzipper
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## Testing
+### `npm run eject`
 
-Jest is used for unit testing
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-Run `nx test kontent-exception-element`
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-## Releasing
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-This application uses Github Actions to build, test, lint, and deploy to an AWS S3 bucket. Prior to syncing to S3, the application is gzipped using the [gzipper](https://www.npmjs.com/package/gzipper) library.
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-For the release process, see [Releasing](../../README.md#releasing)
+## Learn More
 
-## Terraform
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-[Terraform](https://www.terraform.io/) was used to bootstrap the AWS environments. See `main.tf` for examples of the environment layout and resources created.
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-If you have Terraform installed locally, as well as the appropriate AWS profiles, you should be able to do something like the following to build out an environment (using only one .tf file at a time in the directory):
+### Code Splitting
 
-```bash
-terraform init
-terraform apply -auto-approve
-```
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
