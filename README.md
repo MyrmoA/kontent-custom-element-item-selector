@@ -1,70 +1,56 @@
-# Getting Started with Create React App
+# Item Selector
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a [custom element](https://docs.kontent.ai/tutorials/develop-apps/integrate/integrating-your-own-content-editing-features) for [Kentico Kontent](https://kontent.ai) that allows you to select a content item from another Kontent project.
 
-## Available Scripts
+![Screenshot of custom element](ItemSelector.png)
 
-In the project directory, you can run:
+## Setup
 
-### `npm start`
+1. Deploy the code to a secure public host
+   - See [deploying section](#Deploying) for a really quick option
+1. Follow the instructions in the [Kentico Kontent documentation](https://docs.kontent.ai/tutorials/develop-apps/integrate/integrating-your-own-content-editing-features#a-3--displaying-a-custom-element-in-kentico-kontent) to add the element to a content model.
+   - The `Hosted code URL` is where you deployed to in step 1
+   - Pass the necessary parameters as directed in the [JSON Parameters configuration](#json-parameters) section of this readme.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Deploying
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Netlify has made this easy. If you click the deploy button below, it will guide you through the process of deploying it to Netlify and leave you with a copy of the repository in your GitHub account as well.
 
-### `npm test`
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/hzik/kontent-custom-element-item-selector)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## JSON Parameters
 
-### `npm run build`
+You need to specify the `projectid` parameter in order to make the element work. The optional `filter` parameter is for filtering just subitems of your project and you can use any filtering described in our documentation (separated by &):
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[Content filtering documentation](https://docs.kontent.ai/reference/delivery-api#tag/Filtering-content)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Within the filter you can also specify what language of your items you want to retrieve (a default language is returned OOTB) - [https://docs.kontent.ai/tutorials/develop-apps/get-content/getting-localized-content#a-ignoring-language-fallbacks](https://docs.kontent.ai/tutorials/develop-apps/get-content/getting-localized-content#a-ignoring-language-fallbacks)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```Json
+{
+    "projectid": "302946ce-a441-00e5-3dba-ec6ccc479168",
+    "filter": "system.type=article"
+}
+```
 
-### `npm run eject`
+## Saved Value
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The value is saved as a string representing a JSON object. When deserialized, it will look like:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```json
+[
+  {
+    "codename": "article_1",
+    "name": "Article 1",
+    "language": "en-US",
+    "type": "article"
+  },
+  {
+    "codename": "url1",
+    "name": "url1",
+    "language": "en-US",
+    "type":"video_item__url_"
+  }
+]
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
